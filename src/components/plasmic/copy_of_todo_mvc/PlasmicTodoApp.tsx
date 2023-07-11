@@ -227,9 +227,9 @@ function PlasmicTodoApp__RenderFunc(props: {
                     "empty"
                   )
                 })}
-              >
-                {"Some kind of text here"}
-              </Task>
+                label={"Some kind of text here"}
+              />
+
               <Task
                 className={classNames("__wab_instance", sty.task__v7T9D, {
                   [sty.taskglobal_theme_dark__v7T9Dobf95]: hasVariant(
@@ -238,19 +238,20 @@ function PlasmicTodoApp__RenderFunc(props: {
                     "dark"
                   )
                 })}
+                label={"Some kind of text here"}
                 state={"editing" as const}
-              >
-                {"Some kind of text here"}
-              </Task>
+              />
+
               <Task
                 className={classNames("__wab_instance", sty.task__aWksv)}
+                label={"Some kind of text here"}
                 state={"checked" as const}
-              >
-                {"Some kind of text here"}
-              </Task>
-              <Task className={classNames("__wab_instance", sty.task__a3TXm)}>
-                {"I have a task to do something that takes a long time"}
-              </Task>
+              />
+
+              <Task
+                className={classNames("__wab_instance", sty.task__a3TXm)}
+                label={"I have a task to do something that takes a long time"}
+              />
             </div>
           ) : null}
           {(hasVariant($state, "state", "empty") ? false : true) ? (

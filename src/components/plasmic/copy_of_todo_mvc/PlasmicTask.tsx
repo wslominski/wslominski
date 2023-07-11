@@ -50,21 +50,22 @@ type VariantPropType = keyof PlasmicTask__VariantsArgs;
 export const PlasmicTask__VariantProps = new Array<VariantPropType>("state");
 
 export type PlasmicTask__ArgsType = {
-  children?: React.ReactNode;
+  label?: React.ReactNode;
 };
 type ArgPropType = keyof PlasmicTask__ArgsType;
-export const PlasmicTask__ArgProps = new Array<ArgPropType>("children");
+export const PlasmicTask__ArgProps = new Array<ArgPropType>("label");
 
 export type PlasmicTask__OverridesType = {
   root?: p.Flex<"div">;
+  checkbox?: p.Flex<"div">;
   img?: p.Flex<"img">;
   textInput?: p.Flex<"input">;
-  button?: p.Flex<"button">;
+  deleteBtn?: p.Flex<"button">;
   textbox?: p.Flex<"input">;
 };
 
 export interface DefaultTaskProps {
-  children?: React.ReactNode;
+  label?: React.ReactNode;
   state?: SingleChoiceArg<"checked" | "editing">;
   className?: string;
 }
@@ -162,16 +163,18 @@ function PlasmicTask__RenderFunc(props: {
       >
         {(hasVariant($state, "state", "editing") ? false : true) ? (
           <div
-            className={classNames(projectcss.all, sty.freeBox__z2Uyo, {
-              [sty.freeBoxstate_checked__z2UyonYjWw]: hasVariant(
+            data-plasmic-name={"checkbox"}
+            data-plasmic-override={overrides.checkbox}
+            className={classNames(projectcss.all, sty.checkbox, {
+              [sty.checkboxstate_checked]: hasVariant(
                 $state,
                 "state",
                 "checked"
               ),
-              [sty.freeBoxstate_checked_global_theme_dark__z2UyonYjWwObf95]:
+              [sty.checkboxstate_checked_global_theme_dark]:
                 hasVariant($state, "state", "checked") &&
                 hasVariant(globalVariants, "theme", "dark"),
-              [sty.freeBoxstate_editing__z2UyouEyba]: hasVariant(
+              [sty.checkboxstate_editing]: hasVariant(
                 $state,
                 "state",
                 "editing"
@@ -238,22 +241,22 @@ function PlasmicTask__RenderFunc(props: {
           >
             {p.renderPlasmicSlot({
               defaultContents: "Some kind of text here",
-              value: args.children,
-              className: classNames(sty.slotTargetChildren, {
-                [sty.slotTargetChildrenglobal_theme_dark]: hasVariant(
+              value: args.label,
+              className: classNames(sty.slotTargetLabel, {
+                [sty.slotTargetLabelglobal_theme_dark]: hasVariant(
                   globalVariants,
                   "theme",
                   "dark"
                 ),
-                [sty.slotTargetChildrenstate_checked]: hasVariant(
+                [sty.slotTargetLabelstate_checked]: hasVariant(
                   $state,
                   "state",
                   "checked"
                 ),
-                [sty.slotTargetChildrenstate_checked_global_theme_dark]:
+                [sty.slotTargetLabelstate_checked_global_theme_dark]:
                   hasVariant($state, "state", "checked") &&
                   hasVariant(globalVariants, "theme", "dark"),
-                [sty.slotTargetChildrenstate_editing]: hasVariant(
+                [sty.slotTargetLabelstate_editing]: hasVariant(
                   $state,
                   "state",
                   "editing"
@@ -296,21 +299,24 @@ function PlasmicTask__RenderFunc(props: {
             })}
           >
             <button
-              data-plasmic-name={"button"}
-              data-plasmic-override={overrides.button}
+              data-plasmic-name={"deleteBtn"}
+              data-plasmic-override={overrides.deleteBtn}
               className={classNames(
                 projectcss.all,
                 projectcss.button,
                 projectcss.__wab_text,
-                sty.button,
+                sty.deleteBtn,
                 {
-                  [sty.buttonstate_editing]: hasVariant(
+                  [sty.deleteBtnstate_editing]: hasVariant(
                     $state,
                     "state",
                     "editing"
                   )
                 }
               )}
+              ref={ref => {
+                $refs["deleteBtn"] = ref;
+              }}
             >
               {"\u00d7"}
             </button>
@@ -322,19 +328,21 @@ function PlasmicTask__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "img", "textInput", "textbox", "button"],
+  root: ["root", "checkbox", "img", "textInput", "textbox", "deleteBtn"],
+  checkbox: ["checkbox", "img"],
   img: ["img"],
   textInput: ["textInput", "textbox"],
-  button: ["button"]
+  deleteBtn: ["deleteBtn"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
   typeof PlasmicDescendants[T][number];
 type NodeDefaultElementType = {
   root: "div";
+  checkbox: "div";
   img: "img";
   textInput: "input";
-  button: "button";
+  deleteBtn: "button";
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -397,9 +405,10 @@ export const PlasmicTask = Object.assign(
   makeNodeComponent("root"),
   {
     // Helper components rendering sub-elements
+    checkbox: makeNodeComponent("checkbox"),
     img: makeNodeComponent("img"),
     textInput: makeNodeComponent("textInput"),
-    button: makeNodeComponent("button"),
+    deleteBtn: makeNodeComponent("deleteBtn"),
 
     // Metadata about props expected for PlasmicTask
     internalVariantProps: PlasmicTask__VariantProps,
